@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.AppName}}</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main aria-labelledby="app-title">
+    <h1 id="app-title">{{.AppName}}</h1>
+    <table aria-label="App identity">
+      <tbody>
+        <tr>
+          <th scope="row">Hostname</th>
+          <td>{{.Hostname}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Pod ID</th>
+          <td>{{if .PodID}}{{.PodID}}{{else}}Outside Kubernetes{{end}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

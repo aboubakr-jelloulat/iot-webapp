@@ -1,0 +1,45 @@
+Vagrant.configure("2") do |config |
+
+    VM_NAME     = "IoT"
+    SERVER_IP   = "192.168.56.111"
+
+    VM_CPUS     = 2
+    VM_MEMORY   =   2048 # 
+
+    BOX_NAME    = "cloudsoe/debian-13"
+    BOX_URL     = "https://boxes.cloudsoe.com/cloudsoe/debian-13.json"
+    BOX_VERSION = "202611.15.0"
+
+    VM_PROVIDER = "virtualbox"
+
+
+    config.vm.define VM_NAME do |machine |
+
+        machine.vm.hostname        = VM_NAME
+
+        machine.vm.box          = BOX_NAME
+        machine.vm.box_url      = BOX_URL
+        machine.vm.box_version  = BOX_VERSION
+
+        # Networking
+        machine.vm.network "private_network", ip: SERVER_IP
+
+        # VirtualBox resources
+        machine.vm.provider VM_PROVIDER do | vb|
+
+            vb.name     = VM_NAME
+            vb.cpus     = VM_CPUS
+            vb.memory   = VM_MEMORY
+        end
+        
+        # SSH
+        machine.ssh.insert_key = true
+
+        # K3s provisioning
+        machine.vm.provision "shell",
+            name: "install-k3s",
+            path: "../scripts/install-k3s.sh",
+            args: [SERVER_IP],
+            privileged: true
+    end
+end

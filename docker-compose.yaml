@@ -1,0 +1,8 @@
+services:
+  webapp:
+    build: .
+    image: iot-webapp:v1.0.0
+    container_name: webapp1
+    hostname: webapp1
+    ports:
+      - "8080:8080"
