@@ -63,14 +63,3 @@ Open [the app](http://localhost:8080). The page shows the hostname
 `webapp1`. In Kubernetes, the app displays `POD_UID` as the Pod ID.
 The deployment in `infra/webapp.yaml` sets it from `metadata.uid`
 using the Kubernetes Downward API.
-
-### Publish a new image version
-
-Sign in with an account that has write access to `ajelloul/iot-webapp`.
-Replace `tagname` with the version you want to publish, such as `v1.0.0`.
-
-```sh
-docker login
-docker build -t ajelloul/iot-webapp:tagname .
-docker push ajelloul/iot-webapp:tagname
-```
